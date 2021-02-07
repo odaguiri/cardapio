@@ -1,12 +1,15 @@
 FROM ruby:3-alpine
 
+ENV APP_PATH=/usr/src/app/
+
 RUN apk update && \
     apk add -f bash \
                build-base \
                postgresql-dev
-WORKDIR /usr/src/app/
-COPY . /usr/src/app/
-COPY Gemfile Gemfile.lock /usr/src/app/
+
+WORKDIR ${APP_PATH}
+COPY . ${APP_PATH}
+COPY Gemfile Gemfile.lock ${APP_PATH}
 RUN bundle install -j $(nproc)
 
 # Add a script to be executed every time the container starts.
