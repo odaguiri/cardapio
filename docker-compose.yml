@@ -5,9 +5,12 @@ services:
     volumes:
       - ./menu-service:/usr/src/app
     ports:
-      - "3000:3000"
+      - '3000:3000'
     depends_on: 
       - db 
+    environment:
+      RACK_ENV: 'development'
+      DATABASE_URL: 'postgres://cardapio:cardapio@db:5432/cardapio'
   db:
     image: postgres:13-alpine
     volumes:

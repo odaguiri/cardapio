@@ -2,7 +2,8 @@ FROM ruby:3-alpine
 
 RUN apk update && \
     apk add -f bash \
-               build-base
+               build-base \
+               postgresql-dev
 WORKDIR /usr/src/app/
 COPY . /usr/src/app/
 COPY Gemfile Gemfile.lock /usr/src/app/

@@ -3,6 +3,7 @@ GEM
   specs:
     diff-lcs (1.4.4)
     nio4r (2.5.5)
+    pg (1.2.3)
     puma (5.2.1)
       nio4r (~> 2.0)
     rack (2.2.3)
@@ -21,14 +22,17 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.2)
+    sequel (5.41.0)
 
 PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  pg
   puma
   roda (~> 3.40.0)
   rspec
+  sequel
 
 RUBY VERSION
    ruby 3.0.0p0

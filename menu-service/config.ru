@@ -1,3 +1,4 @@
-require_relative 'app'
+require_relative 'menu_service'
 require 'puma'
-run App.freeze.app
+
+run MenuService::App.freeze.app
