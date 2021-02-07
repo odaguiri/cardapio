@@ -7,5 +7,5 @@ gem 'puma'
 gem 'rspec'
 
 # database
-gem "pg"
-gem "sequel"
+gem 'pg'
+gem 'sequel'
