@@ -1,4 +1,8 @@
-require_relative 'menu_service'
-require 'puma'
+dev = ENV['RACK_ENV'] == 'development'
+require 'rack/unreloader'
+Unreloader = Rack::Unreloader.new(subclasses: %w'Roda Sequel::Model', reload: dev) { MenuService::App }
+Unreloader.require './models.rb'
+# Unreloader.require('models') { |f| File.basename(f).sub(/\.rb\z/, '').capitalize }
+Unreloader.require './menu_service.rb'
 
-run MenuService::App.freeze.app
+run(dev ? Unreloader : MenuService::App)

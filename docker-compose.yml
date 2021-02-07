@@ -6,6 +6,7 @@ services:
       - ./menu_service:/usr/src/app
     ports:
       - '3000:3000'
+      - '1234:1234'
     depends_on: 
       - db 
     environment:

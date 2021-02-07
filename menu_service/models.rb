@@ -14,6 +14,7 @@ module MenuService
     Model.plugin :instance_specific_default, :warn
   end
 
+  %w'menu'.each { |x| require_relative "models/#{x}" }
   Model.freeze_descendents
   DB.freeze
 end
