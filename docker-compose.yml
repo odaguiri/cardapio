@@ -1,9 +1,9 @@
 version: "3.9"
 services:
-  menu-service:
-    build: ./menu-service
+  menu_service:
+    build: ./menu_service
     volumes:
-      - ./menu-service:/usr/src/app
+      - ./menu_service:/usr/src/app
     ports:
       - '3000:3000'
     depends_on: 
@@ -19,5 +19,6 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
       POSTGRES_USER: cardapio
       POSTGRES_PASSWORD: cardapio
+
 volumes:
   db-volume:
