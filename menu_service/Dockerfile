@@ -5,7 +5,8 @@ ENV APP_PATH=/usr/src/app/
 RUN apk update && \
     apk add -f bash \
                build-base \
-               postgresql-dev
+               postgresql-dev \
+               postgresql-client
 
 WORKDIR ${APP_PATH}
 COPY . ${APP_PATH}

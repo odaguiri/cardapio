@@ -17,4 +17,7 @@ gem 'rake'
 # testing
 group :development, :test do
   gem 'minitest'
+  gem 'minitest-hooks'
+  gem 'rack-test'
+  gem 'byebug'
 end
