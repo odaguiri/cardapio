@@ -22,4 +22,8 @@ psql -h ${DATABASE_HOST} -U ${DATABASE_SUPERUSER} -c "GRANT USAGE ON SCHEMA ${DA
 
 # Support case insensitive logins
 psql -U ${DATABASE_SUPERUSER} -h ${DATABASE_HOST} -c "CREATE EXTENSION citext SCHEMA ${DATABASE_NAME}" ${DATABASE_NAME}
+
+# Run migrations
+rake db:migrate
+rake db:migrate_password
 ```
