@@ -3,11 +3,19 @@ ruby '3.0.0'
  
 # http server
 gem 'roda', '~> 3.40.0'
+gem 'tilt'
 gem 'puma'
+gem 'erubi'
+gem 'jwt'
+gem 'bcrypt'
 
 # database
 gem 'rodauth'
 gem 'pg'
+
+# email server
+gem 'mail'
+gem 'sendgrid-ruby'
 
 # runner
 gem 'rake'

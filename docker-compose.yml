@@ -3,19 +3,20 @@ services:
   auth_service:
     build: ./auth_service
     ports:
-      - '3001:3001'
+      - '3000:3000'
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgres://auth:auth@db:5432/auth?schema_path=auth
+      - DATABASE_URL=postgres://auth:auth@db:5432/auth?search_path=auth,auth_password
       - PASSWORD_DATABASE_URL=postgres://auth_password:auth_password@db:5432/auth?schema_path=auth_password
-      - SESSION_SECRET=bod&F069|)x|Rc)OYqau'_J.bP3k>zH9|QSVGRA~7ekiY;bW_KeA~]88%m1fkto
+      - DATABASE_NAME=auth
+      - SESSION_SECRET=bod&F069|)x|Rc)OYqau'_J.bP3k>zH9|QSVGRA~7ekiY;bW_KeA~]88%m1fktoNz
     volumes:
       - ./auth_service:/usr/src/app
   menu_service:
     build: ./menu_service
     ports:
-      - '3000:3000'
+      - '3001:3001'
     depends_on: 
       - db 
     environment:
@@ -28,9 +29,9 @@ services:
     ports:
       - '5432:5432'
     environment: 
-      - PGDATA=/var/lib/postgresql/data
       - POSTGRES_USER=cardapio
       - POSTGRES_PASSWORD=cardapio
+      - PGDATA=/var/lib/postgresql/data
     volumes:
       - db-volume:/var/lib/postgresql/data
 volumes:
