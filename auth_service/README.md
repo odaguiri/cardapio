@@ -27,13 +27,3 @@ psql -U ${DATABASE_SUPERUSER} -h ${DATABASE_HOST} -c "CREATE EXTENSION citext SC
 rake db:migrate
 rake db:migrate_password
 ```
-
-# Create an account
-
-```bash
-curl --header "Content-Type: application/json" --request POST --data '{"login": "login2@test.test", "login-confirm":"login2@test.test", "password":"password", "password-confirm":"password"}' http://localhost:3000/create-account
-```
-
-```bash
-curl --verbose --header "Content-Type: application/json" --request POST --data '{"login": "login@test.test", "password":"password"}' http://localhost:3000/login
-```
