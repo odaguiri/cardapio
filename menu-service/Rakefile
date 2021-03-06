@@ -27,7 +27,7 @@ namespace :db do
   desc 'Run test migrations'
   namespace :test do
     task :migrate, [:version] do |t, args|
-      db_migrate('postgres://cardapio:cardapio@db:5432/cardapio_test', args)
+      db_migrate('postgres://cardapio:cardapio@postgres.default.svc.cluster.local:5432/menu_test', args)
     end
   end
 end

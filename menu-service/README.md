@@ -6,8 +6,8 @@ psql -h db -p 5432 -U cardapio
 ```
 
 ```bash
-CREATE DATABASE cardapio
-CREATE DATABASE cardapio_test
+CREATE DATABASE menu
+CREATE DATABASE menu_test
 ```
 
 Check if databases were created:
@@ -18,8 +18,8 @@ Check if databases were created:
 # Migrations
 
 ```bash
-sequel -m migrate postgres://cardapio:cardapio@db:5432/cardapio
-sequel -m migrate postgres://cardapio:cardapio@db:5432/cardapio_test
+sequel -m migrate postgres://cardapio:cardapio@db:5432/menu
+sequel -m migrate postgres://cardapio:cardapio@db:5432/menu_test
 ```
 
 Check migrations

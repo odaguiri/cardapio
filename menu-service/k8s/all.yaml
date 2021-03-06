@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: menu-service
+  labels:
+    run: menu-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 3001
+    protocol: TCP
+    name: http
+  selector:
+    run: menu-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: menu-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: menu-service
+  template:
+    metadata:
+      labels:
+        run: menu-service
+    spec:
+      initContainers:
+      - image: creativename/menu-service
+        name: init-menu-service-migration
+        command: ["sh", "-c", "sequel", "-m", "migrate", "postgres://cardapio:cardapio@postgres-svc.default.svc.cluster.local:5432/menu"]
+      containers:
+      - image: creativename/menu-service
+        imagePullPolicy: Always
+        name: menu-service
+        env:
+        - name: RACK_ENV
+          value: "development"
+        - name: DATABASE_URL
+          value: "postgres://cardapio:cardapio@postgres-svc.default.svc.cluster.local:5432/menu"
+        ports:
+        - containerPort: 3001

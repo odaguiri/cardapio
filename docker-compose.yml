@@ -1,5 +1,31 @@
 version: "3.9"
+
+volumes:
+  db-volume:
+
+secrets:
+  postgres_password:
+    file: ./POSTGRES_PASSWORD
+
 services:
+  db:
+    image: postgres:13-alpine
+    ports:
+      - '5432:5432'
+    environment: 
+      - POSTGRES_USER=cardapio
+      - POSTGRES_PASSWORD_FILE=/run/secrets/postgres_password
+      - PGDATA=/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "cardapio"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    secrets:
+      - postgres_password
+    volumes:
+      - db-volume:/var/lib/postgresql/data
+
   auth_service:
     build: ./auth_service
     ports:
@@ -13,6 +39,7 @@ services:
       - SESSION_SECRET=bod&F069|)x|Rc)OYqau'_J.bP3k>zH9|QSVGRA~7ekiY;bW_KeA~]88%m1fktoNz
     volumes:
       - ./auth_service:/usr/src/app
+
   menu_service:
     build: ./menu_service
     ports:
@@ -24,15 +51,3 @@ services:
       - DATABASE_URL=postgres://cardapio:cardapio@db:5432/cardapio
     volumes:
       - ./menu_service:/usr/src/app
-  db:
-    image: postgres:13-alpine
-    ports:
-      - '5432:5432'
-    environment: 
-      - POSTGRES_USER=cardapio
-      - POSTGRES_PASSWORD=cardapio
-      - PGDATA=/var/lib/postgresql/data
-    volumes:
-      - db-volume:/var/lib/postgresql/data
-volumes:
-  db-volume:
