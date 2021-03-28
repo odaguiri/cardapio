@@ -2,4 +2,5 @@
 /volumes
 
 # menu service
-./menu_service/menu_service_test.db
+./menu_service/test.db
+./menu_service/.byebug_history
