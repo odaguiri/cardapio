@@ -1,2 +1,5 @@
 .vscode
 /volumes
+
+# menu service
+./menu_service/menu_service_test.db

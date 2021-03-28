@@ -1,4 +1,6 @@
 require 'sequel/core'
+# require 'sqlite3' if ENV['RACK_ENV'] == 'test'
+
 module MenuService
-  DB = Sequel.connect(ENV['RACK_ENV'] == 'test' ? 'postgres://cardapio:cardapio@db:5432/cardapio_test' : ENV.delete('DATABASE_URL'))
+  DB = Sequel.connect(ENV.delete('DATABASE_URL'))
 end

@@ -9,25 +9,14 @@ end
 
 task :default => :test
 
-def db_migrate(url, args)
-  require 'sequel/core'
-  Sequel.extension :migration
-  version = args[:version].to_i if args[:version]
-  Sequel.connect(url) do |db|
-    Sequel::Migrator.run(db, 'db/migrate', target: version)
-  end
-end
-
 namespace :db do
   desc 'Run migrations'
   task :migrate, [:version] do |t, args|
-    db_migrate(ENV.fetch('DATABASE_URL'), args)
-  end
-
-  desc 'Run test migrations'
-  namespace :test do
-    task :migrate, [:version] do |t, args|
-      db_migrate('postgres://cardapio:cardapio@postgres.default.svc.cluster.local:5432/menu_test', args)
+    require 'sequel/core'
+    Sequel.extension :migration
+    version = args[:version].to_i if args[:version]
+    Sequel.connect(ENV.fetch('DATABASE_URL')) do |db|
+      Sequel::Migrator.run(db, 'db/migrate', target: version)
     end
   end
 end

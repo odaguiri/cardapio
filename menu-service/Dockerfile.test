@@ -1,0 +1,25 @@
+FROM ruby:3-alpine
+
+ENV APP_PATH=/usr/src/app/ \
+    RACK_ENV=test \
+    DATABASE_URL=sqlite://test.db
+
+RUN apk update && \
+    apk add -f bash \
+               build-base \
+               sqlite \
+               sqlite-dev \
+               sqlite-libs 
+
+WORKDIR ${APP_PATH}
+COPY . ${APP_PATH}
+COPY Gemfile Gemfile.lock ${APP_PATH}
+RUN bundle install -j $(nproc) --without production development
+
+# Add a script to be executed every time the container starts.
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+
+# Start the main process.
+CMD ["rake", "test"]

@@ -9,7 +9,7 @@ function drop {
 }
 
 function apply {
-  kubectl apply -f "./$1/k8s/all.yaml" --force
+  kubectl apply -f "./$1/k8s/all.yaml"
 }
 
 function build {
@@ -19,13 +19,13 @@ function build {
 }
 
 if [ -z "$1" ]; then
-  echo "No project provided"
-  exit 1
-fi
-
-if [ -z "$2" ]; then
   echo "No action provided"
   exit 1
 fi
 
-$2 $1
+if [ -z "$2" ]; then
+  echo "No project provided"
+  exit 1
+fi
+
+$1 $2

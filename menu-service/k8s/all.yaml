@@ -30,7 +30,13 @@ spec:
       initContainers:
       - image: creativename/menu-service
         name: init-menu-service-migration
-        command: ["sh", "-c", "sequel", "-m", "migrate", "postgres://cardapio:cardapio@postgres-svc.default.svc.cluster.local:5432/menu"]
+        command: ["sh", "-c"]
+        args: ["bin/rake db:migrate"]
+        env:
+        - name: RACK_ENV
+          value: "development"
+        - name: DATABASE_URL
+          value: "postgres://menu_service_acc:menu_service_acc@postgres-svc.default.svc.cluster.local:5432/menu_service_db"
       containers:
       - image: creativename/menu-service
         imagePullPolicy: Always
@@ -39,6 +45,6 @@ spec:
         - name: RACK_ENV
           value: "development"
         - name: DATABASE_URL
-          value: "postgres://cardapio:cardapio@postgres-svc.default.svc.cluster.local:5432/menu"
+          value: "postgres://menu_service_acc:menu_service_acc@postgres-svc.default.svc.cluster.local:5432/menu_service_db"
         ports:
         - containerPort: 3001
